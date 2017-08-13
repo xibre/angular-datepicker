@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,7 +39,13 @@
         <h5>{{format}}</h5>
         <input type="text" date-time ng-model="dates.today" view="hours" format="{{format}}">
       </div>
+      <hr />
 
+      <h2>First day</h2>
+      <div ng-repeat="weekDay in weekDays">
+        <h5>First Day: {{weekDay[0]}}</h5>
+      <div date-picker="dates.today" view="date" first-day="{{weekDay[1]}}" watch-direct-changes="true"></div>
+    </div>
     </div>
     <div class="span4">
       <h2>Minimum / Maximum dates</h2>
@@ -68,7 +74,7 @@
 
       <form name="demoForm">
       <div>
-        <h5>Min ({{demoForm.pickerMinDate.$error.min ? 'Min: invalid' : 'Min: valid'}})</h5>        
+        <h5>Min ({{demoForm.pickerMinDate.$error.min ? 'Min: invalid' : 'Min: valid'}})</h5>
         <input date-time name="pickerMinDate" ng-model="dates.today" id="pickerMinDate" min-date="minDate" view="date" min-view="hours" timezone="UTC" format="lll">
       </div>
 
@@ -185,6 +191,16 @@
          "ddd MMM DD YYYY",
          "D MMM YYYY HH:mm",
          "lll",
+      ];
+
+      $scope.weekDays = [
+        ['Sunday', 0],
+        ['Monday', 1],
+        ['Tuesday', 2],
+        ['Wednesday', 3],
+        ['Thursday', 4],
+        ['Friday', 5],
+        ['Saturday', 6],
       ];
 
       $scope.timezones = [
