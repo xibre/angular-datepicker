@@ -65,7 +65,7 @@ Module.directive('dateTime', ['$compile', '$document', '$filter', 'dateTimeConfi
         maxValid = null,
         timezone = attrs.timezone || false,
         eventIsForPicker = datePickerUtils.eventIsForPicker,
-        dateChange = null,
+        dateChange = attrs.dateChange ? $parse(attrs.dateChange)(scope) : null,
         shownOnce = false,
         template;
 
@@ -123,9 +123,9 @@ Module.directive('dateTime', ['$compile', '$document', '$filter', 'dateTimeConfi
         };
       }
 
-      if (angular.isDefined(attrs.dateChange)) {
-        dateChange = datePickerUtils.findFunction(scope, attrs.dateChange);
-      }
+      //if (angular.isDefined(attrs.dateChange)) {
+      //  dateChange = datePickerUtils.findFunction(scope, attrs.dateChange);
+      //}
 
       function getTemplate() {
         template = dateTimeConfig.template(attrs);
@@ -208,7 +208,7 @@ Module.directive('dateTime', ['$compile', '$document', '$filter', 'dateTimeConfi
           scope.$on('setDate', function (event, date, view) {
             updateInput(event);
             if (dateChange) {
-              dateChange(attrs.ngModel, date);
+              dateChange(/*attrs.ngModel, */date);
             }
             if (dismiss && views[views.length - 1] === view) {
               clear();
